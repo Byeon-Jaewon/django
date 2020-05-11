@@ -1,0 +1,6 @@
+config/urls.py -> board/urls.py
+board/urls.py -> views.home
+views.home -> template/home/html
+
+서로 이어지게끔..?
+
