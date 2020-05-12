@@ -1,11 +1,40 @@
 {%extends "base.html" %}
 {%load static%}
 
-    {%block body%}
+{%block body%}
 
     {%include "navbar.html"%}
+
+
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+          <h1>ㅋㅋ게시판임</h1>
+          <h2>ㅋㅋ이거 좀 웃기긴한데 게시판임</h2>
+          <div class="d-flex">
+            <a href="#about" class="btn-get-started scrollto">ㄱㄱㄱㄱ</a>
+            <a href="https://www.youtube.com/watch?v=3FuL_5tUpxw" class="venobox btn-watch-video" data-vbtype="video" data-autoplay="true"> 엄준식은 누구인가 <i class="icofont-play-alt-2"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2 hero-img">
+          <img src="{%static 'assets/img/hero-img.png' %}" class="img-fluid animated" alt="">
+        </div>
+      </div>
+    </div>
+
+  </section><!-- End Hero --> 
+
+    <main id="main">
+
         <h3>게시판써보기</h3>
         <img src="{%static '_images/umrki.jpg' %}" />
-        {%endblock%}
-    </body>
-</html>
+
+    </main><!-- End #main -->
+
+        {% include "footer.html" %}
+
+    {%endblock%}
