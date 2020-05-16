@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'js/home.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+{% include "navbar.html" %}
+<div class="container mt-5">
+	<h2 class="card-title mt-3 text-center">게시판은 모든 응용프로그램의 기본입니다.</h2><br>
+	<h4 class="card-title mt-3 text-center">장고 웹 프로그래머라면 익히고 이해하고 응용... <br>Everyday 습관화!!!</h4>
+</div>
+{% endblock %}
