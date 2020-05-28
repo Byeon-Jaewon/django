@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from board.models import Board
 from django.shortcuts import redirect
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def home(request):
@@ -23,3 +25,46 @@ def board_insert(request):
         return redirect('/board')
     else :
         return redirect('/board_writer')
+
+def board_view(request):
+    bno = request.GET['b_no']
+    rsDetail = Board.objects.filter(b_no=bno)
+
+    return render(request, "board_view.html", {'rsDetail': rsDetail})
+
+def board_edit(request):
+    bno = request.GET['b_no']
+    rsDetail = Board.objects.filter(b_no=bno)
+
+    return render(request, "board_edit.html", {'rsDetail': rsDetail})
+
+
+def board_update(request):
+    bno = request.GET['b_no']
+    btitle = request.GET['b_title']
+    bnote = request.GET['b_note']
+    bwriter = request.GET['b_writer']
+
+    try:
+        board = Board.objects.get(b_no=bno)
+        if btitle != "":
+            board.b_title = btitle
+        if bnote != "":
+            board.b_note = bnote
+        if bwriter != "":
+            board.b_writer = bwriter
+        
+        try : 
+            board.save()
+            return redirect('/board')
+        except ValueError :
+            return Response({"success" : False, "msg":"에러"})
+    except ObjectDoesNotExist:
+        return Response(({"success" : False, "msg": "게시글 없음"}))
+
+
+def board_delete(request) :
+    bno=request.GET['b_no']
+    rows=Board.objects.get(b_no=bno).delete()
+    return redirect('/board')
+

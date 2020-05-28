@@ -4,7 +4,51 @@
 {% block scripts %}
     {{ block.super }}
     <script src="{% static 'js/home.js' %}">
-    
+    //ajax 삭제
+            function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+
+        var xhr;
+
+        function deleteBoard(bno) {
+
+          if (confirm("삭제 하시겠습니까?") == false) {
+            return false;
+          }
+
+        var strurl = "/board_delete?b_no=" + bno;
+
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState == 4) {
+            var data = xhr.responseText;
+
+            document.getElementById("databox_" + bno).style.display = "none";
+
+            var obj = JSON.parse(data);
+            alert(obj.result_msg);
+          }
+        };
+        xhr.open("POST", strurl);
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        xhr.send(null);
+      }
+
+        //ajax 삭제 끝
     </script>
 {% endblock %}
 
@@ -43,7 +87,7 @@
                 <div style="margin:20px 0;">
                     {% for i in rsBoard %}
                         <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                            <tr style="border-top:solid 1px #dddddd;">
+                            <tr style="border-top:solid 1px #dddddd;" id='databox_{{ i.b_no }}'>
                                 <td width="8%" align="center">{{ i.b_no }} </td>
                                 <td width="25%">{{ i.b_title }} </td>
                                 <td width="32%">{{ i.b_note }} </td>
